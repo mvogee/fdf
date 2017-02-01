@@ -9,8 +9,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define HEIGHT = 800
-# define WIDTH = 1000
+# define HEIGHT 750
+# define WIDTH 950
 
 
 typedef struct	s_v2
@@ -36,6 +36,7 @@ typedef struct	s_info
 	int		width;
 	int		zoom;
 	float	prop;
+	int		*zmap;
 	t_v3	**v3grid;
 	t_v2	**pts;
 	float	xrot;
@@ -55,6 +56,12 @@ char	*read_file(int fd);
 */
 int		get_numlines(char *file);
 int		get_numcols(char *file);
-
+int		*get_zmap(char *file, int numlines, int numcols);
+t_info	get_info(int numcols, int numlines, char *file);
+/*
+** make.c
+*/
+t_v3	**make_v3grid(t_info info);
+t_v2	**make_pts(t_info info);
 
 #endif

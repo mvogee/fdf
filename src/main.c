@@ -37,20 +37,26 @@ int main(int ac, char **av)
 	char	*file;
 	int		numcols;
 	int		numlines;
+
+	fd = 0;
 	if (ac != 2)
+	{
 		ft_printf("usage: ./fdf [filename]\n");
+		return (0);
+	}
 	else
 	{
 		fd = open(av[1], O_RDONLY);
 	}
-	if (fd < 0)
+	if (fd <= 0)
 	{
 		ft_printf("Error occured opening file. Check the file path is correct.");
+		return (-1);
 	}
 	file = read_file(fd);
 	numcols = get_numcols(file);
 	numlines = get_numlines(file);
-	get_view(numcols, numlines, file)
+	get_info(numcols, numlines, file);
 
-
+	return (0);
 }
