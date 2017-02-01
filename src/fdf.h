@@ -26,6 +26,22 @@ typedef struct	s_v3
 	float	z;
 }				t_v3;
 
+typedef struct	s_lineinfo
+{
+	float x1;
+	float x2;
+	float y1;
+	float y2;
+	double x;
+	double y;
+	double dx;
+	double dy;
+	double sign_x;
+	double sign_y;
+	double dir;
+	double temp;
+}				t_lineinfo;
+
 typedef struct	s_info
 {
 	void	*mlx;
@@ -63,5 +79,11 @@ t_info	get_info(int numcols, int numlines, char *file);
 */
 t_v3	**make_v3grid(t_info info);
 t_v2	**make_pts(t_info info);
+/*
+** draw.c
+*/
+void	draw_bres_line(t_vec2 vec1, t_vec2 vec2, t_view v);
+void	draw(t_info info);
+
 
 #endif

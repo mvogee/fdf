@@ -113,6 +113,30 @@ int		*get_zmap(char *file, int numlines, int numcols)
 	return (zmap);
 }
 
+t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2, t_info info)
+{
+	t_lineinfo lineinfo;
+
+	lineinfo.x1 = v1.x;
+	lineinfo.y1 = v1.y;
+	lineinfo.x2 = v2.x;
+	lineinfo.y2 = v2.y;
+	lineinfo.x = x1;
+	lineinfo.y = y1;
+	lineinfo.dx = abs(x2 - x1);
+	lineinfo.dy = abs(y2 - y1);
+	if (x2 - x1 >= 0)
+		lineinfo.sign_x = (x2 - x1 > 0 ? 1 : 0);
+	else
+		lineinfo.sign_x = -1;
+	if (y2 - y1 >= 0)
+		lineinfo.sign_y = (y2 - y1 > 0 ? 1 : 0);
+	else
+		lineinfo.sign_y = -1;
+	lineinfo.dir = 0;
+	lineinfo.temp = 0;
+	return (lineinfo);
+}
 
 t_info get_info(int numcols, int numlines, char *file)
 {
@@ -123,7 +147,7 @@ t_info get_info(int numcols, int numlines, char *file)
 	info.height = HEIGHT;
 	info.width = WIDTH;
 	info.zoom = numcols / 2; // this is our mod
-	info.prop = 0.0012; // this deals with warping the plane if you want to. not nessesary
+//	info.prop = 0.0012; // this deals with warping the plane if you want to. not nessesary
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, WIDTH, HEIGHT, "fdf");
 	info.xrot = 0;

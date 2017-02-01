@@ -2,6 +2,7 @@ NAME = fdf
 
 SRCS = ./src/main.c \
 		./src/get.c \
+		./src/draw.c \
 
 OBJS = $(SRCS:.c=.o)
 
