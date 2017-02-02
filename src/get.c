@@ -57,7 +57,7 @@ t_v3	**make_v3grid(t_info info) // goal of this is to go through the file and cr
 			grid[count][count2].x = info.zoom * (count2 - info.numcols / 2);
 			grid[count][count2].y = info.zoom * (count - info.numlines / 2);
 			grid[count][count2].z = (info.zoom / 2.5) * (info.zmap[countz]);
-			printf("%.1f ",grid[count][count2].x);
+			printf("%.1f ",grid[count][count2].z);
 			countz++;
 			count2++;
 		}
@@ -113,7 +113,7 @@ int		*get_zmap(char *file, int numlines, int numcols)
 		{
 			zmap[count] = ft_atoi(file);
 			count++;
-			while (file && ft_isdigit(*file))
+			while (file && *file && ft_isdigit(*file))
 				file++;
 		}
 		if (*file)

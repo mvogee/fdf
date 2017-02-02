@@ -1,19 +1,20 @@
 // 42 header here
 
 #include "fdf.h"
+#include <stdio.h>
 
-double get_linedir(t_lineinfo lineinfo)
+double get_linedir(t_lineinfo *lineinfo)
 {
 	double swap;
 	double temp;
 
 	swap = 0;
 	temp = 0;
-	if (lineinfo.dy > lineinfo.dx) 
+	if (lineinfo->dy > lineinfo->dx) 
 	{
-		temp = lineinfo.dx;
-		lineinfo.dx = lineinfo.dy;
-		lineinfo.dy = temp;
+		temp = lineinfo->dx;
+		lineinfo->dx = lineinfo->dy;
+		lineinfo->dy = temp;
 		swap = 1;
 	}
 	return (swap);
@@ -26,9 +27,10 @@ void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 	int count;
 
 	lineinfo = get_lineinfo(v1, v2);
-	lineinfo.swap = get_linedir(lineinfo);
+	lineinfo.swap = get_linedir(&lineinfo);
 	lineinfo.derr = 2 * lineinfo.dy - lineinfo.dx;
 	count = 0;
+//	printf("[%.1f, %.1f] [%.1f, %.1f]", v1.x, v1.y, v2.x, v2.y);
 	while (count < lineinfo.dx)
 	{
 		mlx_pixel_put(info.mlx, info.win, lineinfo.x, lineinfo.y, 0x00FFFFFF);
