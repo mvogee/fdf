@@ -2,6 +2,15 @@
 
 #include "fdf.h"
 
+int		key_pressed(int keycode, t_info *info)
+{
+	if (keycode == 53)
+		exit(1);
+	ft_printf("%d\n", keycode);
+	(void)info;
+	return (0);
+}
+
 char	*read_file(int fd)
 {
 	char	*readfile;
@@ -30,13 +39,11 @@ char	*read_file(int fd)
 	return (readfile);
 }
 
-
 int main(int ac, char **av)
 {
 	int		fd;
 	char	*file;
-	int		numcols;
-	int		numlines;
+	t_info	info;
 
 	fd = 0;
 	if (ac != 2)
@@ -49,11 +56,9 @@ int main(int ac, char **av)
 		return (-1);
 	}
 	file = read_file(fd);
-	numcols = get_numcols(file);
-	numlines = get_numlines(file);
-	get_info(numcols, numlines, file);
-	draw(info); // this needs to be made
-	mlx_hook(info.win, 2, 0, keyboard_event, &info);
+	info = get_info(file);
+	draw(info);
+	mlx_hook(info.win, 2, 0, key_pressed, &info);
 	mlx_loop(info.mlx);
 	return (0);
 }

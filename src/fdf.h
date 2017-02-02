@@ -28,6 +28,7 @@ typedef struct	s_v3
 
 typedef struct	s_lineinfo
 {
+	float derr;
 	float x1;
 	float x2;
 	float y1;
@@ -38,8 +39,7 @@ typedef struct	s_lineinfo
 	double dy;
 	double sign_x;
 	double sign_y;
-	double dir;
-	double temp;
+	double swap;
 }				t_lineinfo;
 
 typedef struct	s_info
@@ -65,25 +65,27 @@ typedef struct	s_info
 /*
 ** mian.c
 */
-int		main(int ac, char **av);
-char	*read_file(int fd);
+int			main(int ac, char **av);
+char		*read_file(int fd);
 /*
 ** get.c
 */
-int		get_numlines(char *file);
-int		get_numcols(char *file);
-int		*get_zmap(char *file, int numlines, int numcols);
-t_info	get_info(int numcols, int numlines, char *file);
+int			get_numlines(char *file);
+int			get_numcols(char *file);
+int			*get_zmap(char *file, int numlines, int numcols);
+t_info		get_info(char *file);
+t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2);
+int			ft_abs(int i);
 /*
 ** make.c
 */
-t_v3	**make_v3grid(t_info info);
-t_v2	**make_pts(t_info info);
+t_v3		**make_v3grid(t_info info);
+t_v2		**make_pts(t_info info);
 /*
 ** draw.c
 */
-void	draw_bres_line(t_vec2 vec1, t_vec2 vec2, t_view v);
-void	draw(t_info info);
+void		draw_bres_line(t_v2 v1, t_v2 v2, t_info info);
+void		draw(t_info info);
 
 
 #endif
