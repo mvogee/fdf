@@ -30,9 +30,9 @@ int		key_pressed(int keycode, t_info *info)
 	else if (keycode == 2)
 		info->yrot -= angle;
 	else if (keycode == 123)
-		info->zrot += angle;
-	else if (keycode == 124)
 		info->zrot -= angle;
+	else if (keycode == 124)
+		info->zrot += angle;
 	else if (keycode == 15)
 	{
 		info->xrot = 0;
@@ -40,8 +40,8 @@ int		key_pressed(int keycode, t_info *info)
 		info->zrot = 0;
 	}
 	mlx_clear_window(info->mlx, info->win);
-	redraw_image(*info); // need to create this function
-	mlx_key_hook(info->win, key_pressed, info); // recursion while you hold donw a key
+	redraw_image(*info);
+	mlx_key_hook(info->win, key_pressed, info);
 	return (0);
 }
 

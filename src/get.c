@@ -185,7 +185,6 @@ t_info get_info(char *file)
 	info.height = HEIGHT;
 	info.width = WIDTH;
 	info.zoom = HEIGHT / (info.numcols + info.numlines); // this is our mod
-//	info.prop = 0.0012; // this deals with warping the plane if you want to. not nessesary
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, WIDTH, HEIGHT, "fdf");
 	info.xrot = 0;
