@@ -75,16 +75,17 @@ int			get_numcols(char *file);
 int			*get_zmap(char *file, int numlines, int numcols);
 t_info		get_info(char *file);
 t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2);
-int			ft_abs(int i);
-t_v3		**copy_v3(t_v3 **v3grid, t_info info);
 /*
 ** make.c
 */
 t_v3		**make_v3grid(t_info info);
 t_v2		**make_pts(t_info info, t_v3 **v3grid);
+int			ft_abs(int i);
+t_v3		**copy_v3(t_v3 **v3grid, t_info info);
 /*
 ** draw.c
 */
+double		get_linedir(t_lineinfo *lineinfo);
 void		draw_bres_line(t_v2 v1, t_v2 v2, t_info info);
 void		draw(t_info info);
 /*

@@ -31,7 +31,7 @@ void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 	count = 0;
 	while (count < lineinfo.dx)
 	{
-		mlx_pixel_put(info.mlx, info.win, lineinfo.x, lineinfo.y, 0x00FFFFFF);
+		mlx_pixel_put(info.mlx, info.win, lineinfo.x, lineinfo.y, 0x000FFF3F);
 		while (lineinfo.derr >= 0)
 		{ 
 			lineinfo.derr = lineinfo.derr - 2 * lineinfo.dx; 

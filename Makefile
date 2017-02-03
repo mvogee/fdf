@@ -4,6 +4,7 @@ SRCS = ./src/main.c \
 		./src/get.c \
 		./src/draw.c \
 		./src/rot.c \
+		./src/make.c \
 
 OBJS = $(SRCS:.c=.o)
 
