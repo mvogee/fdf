@@ -3,6 +3,33 @@
 #include "fdf.h"
 #include <stdio.h>
 
+t_v3	**copy_v3(t_v3 **v3grid, t_info info)
+{
+	int y;
+	int x;
+	t_v3 **tmp_v3grid;
+
+	y = 0;
+	tmp_v3grid = (t_v3 **)malloc(sizeof(t_v3*) * info.numlines + 1);
+	while (y < info.numlines)
+	{
+		tmp_v3grid[y] = (t_v3*)malloc(sizeof(t_v3) * info.numcols + 1);
+		y++;
+	}
+	y = 0;
+	while (y < info.numlines - 1)
+	{
+		x = 0;
+		while (x < info.numcols)
+		{
+			tmp_v3grid[y][x] = v3grid[y][x];
+			x++;
+		}
+		y++;
+	}
+	return (tmp_v3grid);
+}
+
 int		get_numlines(char *file)
 {
 	int lines;
@@ -57,11 +84,9 @@ t_v3	**make_v3grid(t_info info) // goal of this is to go through the file and cr
 			grid[count][count2].x = info.zoom * (count2 - info.numcols / 2);
 			grid[count][count2].y = info.zoom * (count - info.numlines / 2);
 			grid[count][count2].z = (info.zoom / 2.5) * (info.zmap[countz]);
-			printf("%.1f ",grid[count][count2].z);
 			countz++;
 			count2++;
 		}
-		printf("\n");
 		count++;
 	}
 	return (grid);
@@ -70,7 +95,7 @@ t_v3	**make_v3grid(t_info info) // goal of this is to go through the file and cr
 // this is saying mesh[i][j].x = vec3(mod*(j-columncount/2), vec3.y = mod*(i-rowcount/2), vec3.z = (mod/2.5)*ft_atoi(&line[linei]));
 
 
-t_v2	**make_pts(t_info info)
+t_v2	**make_pts(t_info info, t_v3 **v3grid)
 {
 	t_v2	**pts;
 	int		x;
@@ -89,8 +114,8 @@ t_v2	**make_pts(t_info info)
 	{
 		while (x < info.numcols)
 		{
-			pts[y][x].x = info.v3grid[y][x].x + info.width / 2;
-			pts[y][x].y = info.v3grid[y][x].y + info.height / 2;
+			pts[y][x].x = v3grid[y][x].x + info.width / 2;
+			pts[y][x].y = v3grid[y][x].y + info.height / 2;
 			x++;
 		}
 		x = 0;
@@ -150,7 +175,7 @@ t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2)
 	lineinfo.swap = 0;
 	return (lineinfo);
 }
-#include <stdio.h>
+
 t_info get_info(char *file)
 {
 	t_info	info;
@@ -159,7 +184,7 @@ t_info get_info(char *file)
 	info.numcols = get_numcols(file);
 	info.height = HEIGHT;
 	info.width = WIDTH;
-	info.zoom = WIDTH / info.numcols; // this is our mod
+	info.zoom = HEIGHT / (info.numcols + info.numlines); // this is our mod
 //	info.prop = 0.0012; // this deals with warping the plane if you want to. not nessesary
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, WIDTH, HEIGHT, "fdf");
@@ -168,6 +193,6 @@ t_info get_info(char *file)
 	info.zrot = 0;
 	info.zmap = get_zmap(file, info.numlines, info.numcols);
 	info.v3grid = make_v3grid(info);
-	info.pts = make_pts(info);
+	info.pts = make_pts(info, info.v3grid);
 	return (info);
 }

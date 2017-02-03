@@ -2,12 +2,46 @@
 
 #include "fdf.h"
 
+void	redraw_image(t_info info)
+{
+	t_v3 **tmp_v3grid;
+
+	tmp_v3grid = copy_v3(info.v3grid, info);
+	rotate_x(tmp_v3grid, info, info.xrot);
+	rotate_y(tmp_v3grid, info, info.yrot);
+	rotate_z(tmp_v3grid, info, info.zrot);
+	info.pts = make_pts(info, tmp_v3grid);
+	draw(info);
+}
+
 int		key_pressed(int keycode, t_info *info)
 {
+	float angle;
+
+	angle = M_PI / 96;
 	if (keycode == 53)
-		exit(1);
-	ft_printf("%d\n", keycode);
-	(void)info;
+		exit(0);
+	else if (keycode == 13)
+		info->xrot += angle;
+	else if (keycode == 0)
+		info->yrot += angle;
+	else if (keycode == 1)
+		info->xrot -= angle;
+	else if (keycode == 2)
+		info->yrot -= angle;
+	else if (keycode == 123)
+		info->zrot += angle;
+	else if (keycode == 124)
+		info->zrot -= angle;
+	else if (keycode == 15)
+	{
+		info->xrot = 0;
+		info->yrot = 0;
+		info->zrot = 0;
+	}
+	mlx_clear_window(info->mlx, info->win);
+	redraw_image(*info); // need to create this function
+	mlx_key_hook(info->win, key_pressed, info); // recursion while you hold donw a key
 	return (0);
 }
 
