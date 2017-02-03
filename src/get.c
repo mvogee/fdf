@@ -1,10 +1,20 @@
-// 42 header goes here
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvogee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/03 12:39:52 by mvogee            #+#    #+#             */
+/*   Updated: 2017/02/03 12:39:53 by mvogee           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
-int		get_numlines(char *file)
+int			get_numlines(char *file)
 {
-	int lines;
+	int			lines;
 
 	lines = 0;
 	while (file && *file)
@@ -16,10 +26,10 @@ int		get_numlines(char *file)
 	return (lines + 1);
 }
 
-int		get_numcols(char *file)
+int			get_numcols(char *file)
 {
-	int		cols;
-	int		flag;
+	int			cols;
+	int			flag;
 
 	cols = 0;
 	flag = 0;
@@ -37,10 +47,10 @@ int		get_numcols(char *file)
 	return (cols);
 }
 
-int		*get_zmap(char *file, int numlines, int numcols)
+int			*get_zmap(char *file, int numlines, int numcols)
 {
-	int		*zmap;
-	int		count;
+	int			*zmap;
+	int			count;
 
 	count = 0;
 	zmap = (int*)malloc(sizeof(int) * numlines * numcols);
@@ -53,9 +63,14 @@ int		*get_zmap(char *file, int numlines, int numcols)
 			while (file && *file && ft_isdigit(*file))
 				file++;
 		}
+		if (*file == ',')
+		{
+			while (*file && *file != ' ')
+				file++;
+		}
 		if (*file)
 			file++;
-	}	
+	}
 	return (zmap);
 }
 
@@ -65,7 +80,7 @@ int		*get_zmap(char *file, int numlines, int numcols)
 
 t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2)
 {
-	t_lineinfo lineinfo;
+	t_lineinfo	lineinfo;
 
 	lineinfo.x1 = v1.x;
 	lineinfo.y1 = v1.y;
@@ -91,9 +106,9 @@ t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2)
 ** sets all the variables in our info struct
 */
 
-t_info get_info(char *file)
+t_info		get_info(char *file)
 {
-	t_info	info;
+	t_info		info;
 
 	info.numlines = get_numlines(file);
 	info.numcols = get_numcols(file);
@@ -108,6 +123,7 @@ t_info get_info(char *file)
 	info.zmap = get_zmap(file, info.numlines, info.numcols);
 	info.v3grid = make_v3grid(info);
 	info.pts = make_pts(info, info.v3grid);
-	info.color = 0x000FFF3F;
+	info.color = 0x00FFFFFF;
+	info.colors = make_colorstruct();
 	return (info);
 }

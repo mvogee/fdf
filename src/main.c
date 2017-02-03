@@ -1,4 +1,14 @@
-//42 header goes here
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvogee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/03 12:44:12 by mvogee            #+#    #+#             */
+/*   Updated: 2017/02/03 12:44:13 by mvogee           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
@@ -11,7 +21,7 @@
 
 void	redraw_image(t_info info)
 {
-	t_v3 **tmp_v3grid;
+	t_v3	**tmp_v3grid;
 
 	tmp_v3grid = copy_v3(info.v3grid, info);
 	rotate_x(tmp_v3grid, info, info.xrot);
@@ -33,10 +43,24 @@ void	reset_rot(t_info *info, int keycode)
 		info->yrot = 0;
 		info->zrot = 0;
 	}
-	else if (keycode == 126)
-		info->color += 8;
-	else if (keycode == 125)
-		info->color -= 8;
+	else if (keycode == 126 || keycode == 125)
+	{
+		if (keycode == 126)
+		{
+			if (info->colors.index == 19)
+				info->colors.index = 0;
+			else
+				info->colors.index += 1;
+		}
+		else if (keycode == 125)
+		{
+			if (info->colors.index == 0)
+				info->colors.index = 19;
+			else
+				info->colors.index -= 1;
+		}
+		info->color = info->colors.colorarr[info->colors.index];
+	}
 }
 
 /*
@@ -45,7 +69,7 @@ void	reset_rot(t_info *info, int keycode)
 
 int		key_pressed(int keycode, t_info *info)
 {
-	float angle;
+	float	angle;
 
 	angle = M_PI / 96;
 	if (keycode == 53)
@@ -102,7 +126,6 @@ char	*read_file(int fd)
 	return (readfile);
 }
 
-
 /*
 ** initialize the info struct that will hold all the projection information.
 ** make sure there is input and that it is correct.
@@ -111,7 +134,7 @@ char	*read_file(int fd)
 ** check for key hooks will make a change to the image
 */
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	int		fd;
 	char	*file;
@@ -124,7 +147,7 @@ int main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 	if (fd <= 0)
 	{
-		ft_printf("Error occured opening file.\n Make sure the file path is correct.\n");
+		ft_printf("Error occured opening file.\n");
 		return (-1);
 	}
 	file = read_file(fd);

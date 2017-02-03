@@ -1,15 +1,25 @@
-// 42 header here
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvogee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/03 12:38:30 by mvogee            #+#    #+#             */
+/*   Updated: 2017/02/03 12:38:32 by mvogee           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
-double get_linedir(t_lineinfo *lineinfo)
+double	get_linedir(t_lineinfo *lineinfo)
 {
-	double swap;
-	double temp;
+	double		swap;
+	double		temp;
 
 	swap = 0;
 	temp = 0;
-	if (lineinfo->dy > lineinfo->dx) 
+	if (lineinfo->dy > lineinfo->dx)
 	{
 		temp = lineinfo->dx;
 		lineinfo->dx = lineinfo->dy;
@@ -22,7 +32,7 @@ double get_linedir(t_lineinfo *lineinfo)
 void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 {
 	t_lineinfo	lineinfo;
-	int count;
+	int			count;
 
 	lineinfo = get_lineinfo(v1, v2);
 	lineinfo.swap = get_linedir(&lineinfo);
@@ -32,8 +42,8 @@ void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 	{
 		mlx_pixel_put(info.mlx, info.win, lineinfo.x, lineinfo.y, info.color);
 		while (lineinfo.derr >= 0)
-		{ 
-			lineinfo.derr = lineinfo.derr - 2 * lineinfo.dx; 
+		{
+			lineinfo.derr = lineinfo.derr - 2 * lineinfo.dx;
 			if (lineinfo.swap != 0)
 				lineinfo.x += lineinfo.sign_x;
 			else
@@ -42,7 +52,7 @@ void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 		lineinfo.derr = lineinfo.derr + 2 * lineinfo.dy;
 		if (lineinfo.swap)
 			lineinfo.y += lineinfo.sign_y;
-		else 
+		else
 			lineinfo.x += lineinfo.sign_x;
 		count++;
 	}
@@ -50,9 +60,9 @@ void	draw_bres_line(t_v2 v1, t_v2 v2, t_info info)
 
 void	draw(t_info info)
 {
-	int y;
-	int x;
-	t_v2 **points;
+	int			y;
+	int			x;
+	t_v2		**points;
 
 	points = info.pts;
 	y = 0;
