@@ -1,7 +1,6 @@
 // 42 header here
 
 #include "fdf.h"
-#include <stdio.h>
 
 double get_linedir(t_lineinfo *lineinfo)
 {

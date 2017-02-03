@@ -51,7 +51,6 @@ typedef struct	s_info
 	int		height;
 	int		width;
 	int		zoom;
-//	float	prop;
 	int		*zmap;
 	t_v3	**v3grid;
 	t_v2	**pts;

@@ -1,7 +1,6 @@
 // 42 header goes here
 
 #include "fdf.h"
-#include <stdio.h>
 
 int		get_numlines(char *file)
 {
@@ -38,7 +37,6 @@ int		get_numcols(char *file)
 	return (cols);
 }
 
-//	points[row][col] = vec2(X + v.size/2 + v.proportionality*X*Z, Y + v.size/2 + v.proportionality*Y*Z); // the X Y Z vars are v3d_grid[y][x].x y or z
 int		*get_zmap(char *file, int numlines, int numcols)
 {
 	int		*zmap;
