@@ -14,6 +14,13 @@ void	redraw_image(t_info info)
 	draw(info);
 }
 
+void	reset_rot(t_info *info)
+{
+	info->xrot = 0;
+	info->yrot = 0;
+	info->zrot = 0;
+}
+
 int		key_pressed(int keycode, t_info *info)
 {
 	float angle;
@@ -34,11 +41,7 @@ int		key_pressed(int keycode, t_info *info)
 	else if (keycode == 124)
 		info->zrot += angle;
 	else if (keycode == 15)
-	{
-		info->xrot = 0;
-		info->yrot = 0;
-		info->zrot = 0;
-	}
+		reset_rot(info);
 	mlx_clear_window(info->mlx, info->win);
 	redraw_image(*info);
 	mlx_key_hook(info->win, key_pressed, info);

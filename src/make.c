@@ -4,7 +4,7 @@
 
 int		ft_abs(int i)
 {
-	return i < 0 ? -i : i;
+	return (i < 0 ? -i : i);
 }
 
 t_v3	**copy_v3(t_v3 **v3grid, t_info info)

@@ -64,8 +64,8 @@ typedef struct	s_info
 */
 int			main(int ac, char **av);
 char		*read_file(int fd);
-void	redraw_image(t_info info);
-int		key_pressed(int keycode, t_info *info);
+void		redraw_image(t_info info);
+int			key_pressed(int keycode, t_info *info);
 /*
 ** get.c
 */
@@ -90,8 +90,8 @@ void		draw(t_info info);
 /*
 ** rot.c
 */
-void	rotate_x(t_v3 **v3grid, t_info info, float angle);
-void	rotate_y(t_v3 **v3grid, t_info info, float angle);
-void	rotate_z(t_v3 **v3grid, t_info info, float angle);
+void		rotate_x(t_v3 **v3grid, t_info info, float angle);
+void		rotate_y(t_v3 **v3grid, t_info info, float angle);
+void		rotate_z(t_v3 **v3grid, t_info info, float angle);
 
 #endif
