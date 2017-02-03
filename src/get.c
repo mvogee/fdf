@@ -114,7 +114,8 @@ t_info		get_info(char *file)
 	info.numcols = get_numcols(file);
 	info.height = HEIGHT;
 	info.width = WIDTH;
-	info.zoom = HEIGHT / (info.numcols + info.numlines);
+	info.zoom = (info.numlines < 100 ?
+		HEIGHT / (info.numcols + info.numlines) : HEIGHT / info.numlines);
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, WIDTH, HEIGHT, "fdf");
 	info.xrot = 0;
