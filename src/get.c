@@ -100,5 +100,6 @@ t_info get_info(char *file)
 	info.zmap = get_zmap(file, info.numlines, info.numcols);
 	info.v3grid = make_v3grid(info);
 	info.pts = make_pts(info, info.v3grid);
+	info.color = 0x000FFF3F;
 	return (info);
 }

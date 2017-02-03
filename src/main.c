@@ -14,11 +14,18 @@ void	redraw_image(t_info info)
 	draw(info);
 }
 
-void	reset_rot(t_info *info)
+void	reset_rot(t_info *info, int keycode)
 {
-	info->xrot = 0;
-	info->yrot = 0;
-	info->zrot = 0;
+	if (keycode == 15)
+	{
+		info->xrot = 0;
+		info->yrot = 0;
+		info->zrot = 0;
+	}
+	else if (keycode == 126)
+		info->color += 8;
+	else if (keycode == 125)
+		info->color -= 8;
 }
 
 int		key_pressed(int keycode, t_info *info)
@@ -40,8 +47,8 @@ int		key_pressed(int keycode, t_info *info)
 		info->zrot -= angle;
 	else if (keycode == 124)
 		info->zrot += angle;
-	else if (keycode == 15)
-		reset_rot(info);
+	else if (keycode == 15 || keycode == 126 || keycode == 125)
+		reset_rot(info, keycode);
 	mlx_clear_window(info->mlx, info->win);
 	redraw_image(*info);
 	mlx_key_hook(info->win, key_pressed, info);

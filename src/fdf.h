@@ -57,6 +57,7 @@ typedef struct	s_info
 	float	xrot;
 	float	yrot;
 	float	zrot;
+	int		color;
 }				t_info;
 
 /*
