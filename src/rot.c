@@ -2,6 +2,10 @@
 
 #include "fdf.h"
 
+/*
+** all using "Simple", vector math to tanslate the vector map points
+*/
+
 void	rotate_x(t_v3 **v3grid, t_info info, float angle)
 {
 	float	yp;

@@ -2,6 +2,13 @@
 
 #include "fdf.h"
 
+/*
+** copys our original grid to be referenced later by the rot functions
+** rotat the x y and z variables
+** update the pts with the updated v3 matrix
+** draw the new points to screen
+*/
+
 void	redraw_image(t_info info)
 {
 	t_v3 **tmp_v3grid;
@@ -13,6 +20,10 @@ void	redraw_image(t_info info)
 	info.pts = make_pts(info, tmp_v3grid);
 	draw(info);
 }
+
+/*
+** extention of key_pressed because couldnt fit it in 25 lines
+*/
 
 void	reset_rot(t_info *info, int keycode)
 {
@@ -27,6 +38,10 @@ void	reset_rot(t_info *info, int keycode)
 	else if (keycode == 125)
 		info->color -= 8;
 }
+
+/*
+** makes the correct translation for the key pressed
+*/
 
 int		key_pressed(int keycode, t_info *info)
 {
@@ -55,6 +70,10 @@ int		key_pressed(int keycode, t_info *info)
 	return (0);
 }
 
+/*
+** opens the file and reads all its contents into a char string
+*/
+
 char	*read_file(int fd)
 {
 	char	*readfile;
@@ -82,6 +101,15 @@ char	*read_file(int fd)
 	}
 	return (readfile);
 }
+
+
+/*
+** initialize the info struct that will hold all the projection information.
+** make sure there is input and that it is correct.
+** open the file and read its contents into file char string
+** get the info for the inital dawing of the image in get_info
+** check for key hooks will make a change to the image
+*/
 
 int main(int ac, char **av)
 {

@@ -50,9 +50,9 @@ t_v3	**make_v3grid(t_info info) // goal of this is to go through the file and cr
 		grid[count] = (t_v3*)malloc(sizeof(t_v3) * info.numcols + 1);
 		while (count2 < info.numcols)
 		{
-			grid[count][count2].x = info.zoom * (count2 - info.numcols / 2);
-			grid[count][count2].y = info.zoom * (count - info.numlines / 2);
-			grid[count][count2].z = (info.zoom / 2.5) * (info.zmap[countz]);
+			grid[count][count2].x = info.zoom * (count2 - info.numcols / 2); // use zoom to create distance between the points
+			grid[count][count2].y = info.zoom * (count - info.numlines / 2); // count - info. / 2 gives us the correct x y coordinate we need
+			grid[count][count2].z = (info.zoom / 2.5) * (info.zmap[countz]); // devided zoom to keep the hums from being too huge
 			countz++;
 			count2++;
 		}
@@ -80,7 +80,7 @@ t_v2	**make_pts(t_info info, t_v3 **v3grid)
 	{
 		while (x < info.numcols)
 		{
-			pts[y][x].x = v3grid[y][x].x + info.width / 2;
+			pts[y][x].x = v3grid[y][x].x + info.width / 2; // the + is for centering otherwise it will be off screen or top right
 			pts[y][x].y = v3grid[y][x].y + info.height / 2;
 			x++;
 		}

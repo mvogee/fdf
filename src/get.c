@@ -59,6 +59,10 @@ int		*get_zmap(char *file, int numlines, int numcols)
 	return (zmap);
 }
 
+/*
+** sets all the variables in our lineinfo struct
+*/
+
 t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2)
 {
 	t_lineinfo lineinfo;
@@ -83,6 +87,10 @@ t_lineinfo	get_lineinfo(t_v2 v1, t_v2 v2)
 	return (lineinfo);
 }
 
+/*
+** sets all the variables in our info struct
+*/
+
 t_info get_info(char *file)
 {
 	t_info	info;
@@ -91,7 +99,7 @@ t_info get_info(char *file)
 	info.numcols = get_numcols(file);
 	info.height = HEIGHT;
 	info.width = WIDTH;
-	info.zoom = HEIGHT / (info.numcols + info.numlines); // this is our mod
+	info.zoom = HEIGHT / (info.numcols + info.numlines);
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, WIDTH, HEIGHT, "fdf");
 	info.xrot = 0;
