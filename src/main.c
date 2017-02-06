@@ -32,35 +32,33 @@ void	redraw_image(t_info info)
 }
 
 /*
-** extention of key_pressed because couldnt fit it in 25 lines
+** rest all rotation variables to 0
 */
 
 void	reset_rot(t_info *info, int keycode)
 {
-	if (keycode == 15)
+	info->xrot = 0;
+	info->yrot = 0;
+	info->zrot = 0;
+}
+
+void	color_switch(t_info *info, int keycode)
+{
+	if (keycode == 126)
 	{
-		info->xrot = 0;
-		info->yrot = 0;
-		info->zrot = 0;
+		if (info->colors.index == 19)
+			info->colors.index = 0;
+		else
+			info->colors.index += 1;
 	}
-	else if (keycode == 126 || keycode == 125)
+	else if (keycode == 125)
 	{
-		if (keycode == 126)
-		{
-			if (info->colors.index == 19)
-				info->colors.index = 0;
-			else
-				info->colors.index += 1;
-		}
-		else if (keycode == 125)
-		{
-			if (info->colors.index == 0)
-				info->colors.index = 19;
-			else
-				info->colors.index -= 1;
-		}
-		info->color = info->colors.colorarr[info->colors.index];
+		if (info->colors.index == 0)
+			info->colors.index = 19;
+		else
+			info->colors.index -= 1;
 	}
+	info->color = info->colors.colorarr[info->colors.index];
 }
 
 /*
@@ -86,8 +84,10 @@ int		key_pressed(int keycode, t_info *info)
 		info->zrot -= angle;
 	else if (keycode == 124)
 		info->zrot += angle;
-	else if (keycode == 15 || keycode == 126 || keycode == 125)
+	else if (keycode == 15)
 		reset_rot(info, keycode);
+	else if (keycode == 126 || keycode == 125)
+		color_switch(info, keycode);
 	mlx_clear_window(info->mlx, info->win);
 	redraw_image(*info);
 	mlx_key_hook(info->win, key_pressed, info);
