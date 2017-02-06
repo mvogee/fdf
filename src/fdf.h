@@ -80,7 +80,7 @@ typedef struct	s_info
 }				t_info;
 
 /*
-** mian.c
+** main.c
 */
 int				main(int ac, char **av);
 char			*read_file(int fd);
